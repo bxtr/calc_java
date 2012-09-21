@@ -22,29 +22,31 @@ public class Calc
   public Calc(String s)
   {
     expression = s;
-    if(!separator())
+    if(!(stringValidation(expression) && separator(expression)))
     {
       System.out.println("It doesn't seem like a correct input :(");
       System.exit(0);
     }
   }
 
-  private static boolean separator()
+  private static boolean stringValidation(String s)
   {
     Pattern p = Pattern.compile("[\\d]+[\\Q+-*/\\E][\\d]+");
-    Matcher m = p.matcher(expression);
-    if (m.matches())
-      {
-        Pattern p1 = Pattern.compile("[\\Q+-*/\\E]");
-        Matcher m1 = p1.matcher(expression);
-        if(m1.find()){
-          int isign = m1.start();
-          firstValue = expression.substring(0, isign);
-          sign = expression.substring(isign, (isign+1));
-          secondValue = expression.substring((isign+1), expression.length());
-          return true;
-        }
-      }
+    Matcher m = p.matcher(s);
+    return m.matches();
+  }
+  private static boolean separator(String string)
+  {
+    Pattern p1 = Pattern.compile("[\\Q+-*/\\E]");
+    Matcher m1 = p1.matcher(string);
+    if(m1.find())
+    {
+      int isign = m1.start();
+      firstValue = string.substring(0, isign);
+      sign = string.substring(isign, (isign+1));
+      secondValue = string.substring((isign+1), string.length());
+      return true;
+    }
     return false;
   }
   
