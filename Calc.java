@@ -1,19 +1,16 @@
 import java.util.regex.*;
+import java.util.Scanner;
 
 interface UserInterface
 {
   public void display(String s);
-  public String read();
-  public String toString();
-  //  public void load();
+  public String readLine();
 }
 
 interface Function
 {
   public String calculate(String first, String second);
 }
-
-
 
 public class Calc
 {
@@ -27,7 +24,7 @@ public class Calc
     expression = s;
     if(!subtractor())
     {
-      System.out.println("It does't seem like correct input :(");
+      System.out.println("It doesn't seem like a correct input :(");
       System.exit(0);
     }
   }
@@ -51,31 +48,69 @@ public class Calc
     return false;
   }
   
-  public void calculate()
+  public String calculate()
   {
-    chooseFunction();
+    Function func = chooseFunction();
+    return (func.calculate(firstValue, secondValue));
   }
 
-  private static void chooseFunction()
+  private static Function chooseFunction()
   {
-    Function answer;
+    Function func;
     if(sign.equals("+"))
-      { answer = new Addition();}
+      { func = new Addition();}
     else if (sign.equals("*")) 
-      { answer = new Multiplication(); }
+      { func = new Multiplication(); }
     else
-      { System.out.println("Non existing function"); return;}
-    System.out.println(firstValue + " " + sign + " " + secondValue + " = " + answer.calculate(firstValue, secondValue));
+      { func = new NonExistingFunction();}
+    return func;
   }
 
   public static void main(String[] args)
   {
-    Calc calc = new Calc("167*10");
-    calc.calculate();
+    System.out.println("Choose interface:\n 1 for console; \n 2 for graphic.");
+    int userPreference = StdIn.readInt();
+    UserInterface userInterface;
+    switch (userPreference)
+    {
+      case 1:
+        userInterface = new ConsoleInterface();
+        break;
+  //    case 2:
+  //      userInterface = GuiInterface();
+  //      break;
+      default:
+        userInterface = new ConsoleInterface();
+        break;
+    }
+    userInterface.display("Input expression:");
+    Calc calc = new Calc(userInterface.readLine());
+    userInterface.display(firstValue + " " + sign + " " + secondValue + " = " + calc.calculate());
+  }
+  ////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////
+  static class ConsoleInterface implements UserInterface
+  {
+    public void display(String s)
+    { System.out.println(s);}
+    
+    public String readLine()
+    { 
+      String stringInput;
+      Scanner scanIn = new Scanner(System.in);
+      stringInput = scanIn.nextLine();
+      scanIn.close();
+      return stringInput;       
+    }
   }
 
   ////////////////////////////////////////////////////
   ////////////////////////////////////////////////////
+  static class NonExistingFunction implements Function
+  {
+    public String calculate(String first, String second)
+    { return "Error: NonExistingFunction"; }
+  }
 
   static class Addition implements Function
   {
@@ -89,6 +124,6 @@ public class Calc
     { return (new Double(new Double(first).doubleValue() * new Double(second).intValue())).toString(); }
   }
 
-  
+
 }
 
