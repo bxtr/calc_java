@@ -22,14 +22,14 @@ public class Calc
   public Calc(String s)
   {
     expression = s;
-    if(!subtractor())
+    if(!separator())
     {
       System.out.println("It doesn't seem like a correct input :(");
       System.exit(0);
     }
   }
 
-  private static boolean subtractor()
+  private static boolean separator()
   {
     Pattern p = Pattern.compile("[\\d]+[\\Q+-*/\\E][\\d]+");
     Matcher m = p.matcher(expression);
@@ -61,6 +61,10 @@ public class Calc
       { func = new Addition();}
     else if (sign.equals("*")) 
       { func = new Multiplication(); }
+    else if (sign.equals("-"))
+      { func = new Subtraction(); }
+    else if (sign.equals("/"))
+      { func = new Division();}
     else
       { func = new NonExistingFunction();}
     return func;
@@ -115,15 +119,32 @@ public class Calc
   static class Addition implements Function
   {
     public String calculate(String first, String second)
-    { return (new Double(new Double(first).doubleValue() + new Double(second).intValue())).toString(); }
+    { return (new Double(new Double(first).doubleValue() + new Double(second).doubleValue())).toString(); }
+  }
+
+  static class Subtraction implements Function
+  {
+    public String calculate(String first, String second)
+    { return (new Double(new Double(first).doubleValue() - new Double(second).doubleValue())).toString(); }
   }
 
   static class Multiplication implements Function
   {
     public String calculate(String first, String second)
-    { return (new Double(new Double(first).doubleValue() * new Double(second).intValue())).toString(); }
+    { return (new Double(new Double(first).doubleValue() * new Double(second).doubleValue())).toString(); }
   }
 
+  static class Division implements Function
+  {
+    public String calculate(String first, String second)
+    {
+      double divider = new Double(second).doubleValue();
+      if (divider != 0.0)
+        return (new Double(new Double(first).doubleValue() / divider)).toString();
+      else
+        return "Cannot divide by zero";
+    }
+  }
 
 }
 
