@@ -1,16 +1,17 @@
 import java.util.regex.*;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 interface UserInterface
 {
   public void display(String s);
-  public String readLine();
+  public String readExpession();
 }
 
 interface Function
-{
-  public String calculate(String first, String second);
-}
+{ public String calculate(String first, String second); }
 
 public class Calc
 {
@@ -20,13 +21,13 @@ public class Calc
   public static String sign;
 
   public Calc(String s)
+  { expression = s;}
+
+  private static boolean stringProcessing()
   {
-    expression = s;
-    if(!(stringValidation(expression) && separator(expression)))
-    {
-      System.out.println("It doesn't seem like a correct input :(");
-      System.exit(0);
-    }
+    if(stringValidation(expression) && stringSeparator(expression))
+      return true;
+    else return false;
   }
 
   private static boolean stringValidation(String s)
@@ -35,7 +36,7 @@ public class Calc
     Matcher m = p.matcher(s);
     return m.matches();
   }
-  private static boolean separator(String string)
+  private static boolean stringSeparator(String string)
   {
     Pattern p1 = Pattern.compile("[\\Q+-*/\\E]");
     Matcher m1 = p1.matcher(string);
@@ -89,9 +90,17 @@ public class Calc
         userInterface = new ConsoleInterface();
         break;
     }
-    userInterface.display("Input expression:");
-    Calc calc = new Calc(userInterface.readLine());
-    userInterface.display(firstValue + " " + sign + " " + secondValue + " = " + calc.calculate());
+    while(true)
+    {
+      userInterface.display("Input expression:");
+      Calc calc = new Calc(userInterface.readExpession());
+      if(calc.expression.equals(""))
+        break;
+      if(calc.stringProcessing())
+        userInterface.display(calc.firstValue + " " + calc.sign + " " + calc.secondValue + " = " + calc.calculate());
+      else
+      { userInterface.display("It doesn't seem like a correct input :("); }
+    }
   }
   ////////////////////////////////////////////////////
   ////////////////////////////////////////////////////
@@ -100,16 +109,19 @@ public class Calc
     public void display(String s)
     { System.out.println(s);}
     
-    public String readLine()
+    public String readExpession()
     { 
-      String stringInput;
-      Scanner scanIn = new Scanner(System.in);
-      stringInput = scanIn.nextLine();
-      scanIn.close();
-      return stringInput;       
+      String s = "";
+      try {
+          InputStreamReader isr = new InputStreamReader(System.in);
+          BufferedReader br = new BufferedReader(isr);
+          s = br.readLine();
+      } catch (IOException e) {
+          e.printStackTrace();
+      }
+      return s;   
     }
   }
-
   ////////////////////////////////////////////////////
   ////////////////////////////////////////////////////
   static class NonExistingFunction implements Function
@@ -147,6 +159,5 @@ public class Calc
         return "Cannot divide by zero";
     }
   }
-
 }
 
