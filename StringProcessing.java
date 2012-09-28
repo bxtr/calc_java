@@ -2,7 +2,7 @@ import java.util.regex.*;
 
 public class StringProcessing
 {
-  private String expression;
+  public String expression;
   private String firstValue;
   private String secondValue;
   private String sign;

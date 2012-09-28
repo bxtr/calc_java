@@ -1,12 +1,16 @@
 public class Calculation
 {
-  public static String expression;
+ // public static String expression;
   public static String firstValue;
   public static String secondValue;
   public static String sign;
 
-  public Calculation(String s)
-  { expression = s;}
+  public Calculation(String firstValue, String secondValue, String sign)
+  { 
+    this.firstValue = firstValue;
+    this.secondValue = secondValue;
+    this.sign = sign;
+  }
   
   /* Launching chosen fucntion and return answer */
   public String calculate()

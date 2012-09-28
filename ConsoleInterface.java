@@ -5,10 +5,10 @@ import java.io.InputStreamReader;
 public class ConsoleInterface implements UserInterface
 {
 
-  public void start()
-  { System.out.println("Input expressions:"); }
+  public void startWork()
+  { System.out.println("If you want close app - print \"exit\".\nInput expressions:"); }
 
-  public void end()
+  public void endWork()
   { System.out.println("Bye!"); }
 
   public void displayAnswer(String s)
@@ -17,6 +17,11 @@ public class ConsoleInterface implements UserInterface
   public void displayErrorMessage(String s)
   { System.out.println(s); }
   
+  public boolean response()
+  { return true;}
+
+  public void preparationForNextResponse()
+  { return;}
   public String readExpession()
   { 
     String s = "";
