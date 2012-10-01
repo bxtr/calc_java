@@ -22,8 +22,6 @@ public class GuiInterface implements UserInterface
 
   public boolean response()
   {
-    if(responseFlag)
-      System.out.printf("");
     return responseFlag;
   }
 
@@ -41,6 +39,7 @@ public class GuiInterface implements UserInterface
 
   public void displayAnswer(String s)
   {
+
     textField.setText(s);
   }
 
@@ -49,10 +48,13 @@ public class GuiInterface implements UserInterface
     textField.setText(s);
   }
 
+  public void run(){
+    this.frame.setVisible(true);
+  }
+
   public GuiInterface() {
     responseFlag = false;
-    initialize();
-    this.frame.setVisible(true);
+    initialize();   
   }
 
 

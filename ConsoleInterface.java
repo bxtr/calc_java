@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 
 public class ConsoleInterface implements UserInterface
 {
+  public void run(){};
 
   public void startWork()
   { System.out.println("If you want close app - print \"exit\".\nInput expressions:"); }

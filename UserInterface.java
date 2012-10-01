@@ -1,4 +1,4 @@
-interface UserInterface
+interface UserInterface extends Runnable
 {
   /* Work starting - hello-message, adjustment and so on. But no initialization, of course. */
   public void startWork();

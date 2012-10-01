@@ -19,11 +19,14 @@ public class BxtrCalc
         break;
     }
     /* Beginning work */
+    Thread flowUserInterface = new Thread(userInterface);
+    flowUserInterface.start();
     userInterface.startWork();
     while(true)
     {
       if(userInterface.response())
       {
+      //  System.out.println("MAIN inside");
         StringProcessing strProc = new StringProcessing(userInterface.readExpession());
         if(strProc.expression.equals("exit"))
         {
@@ -34,12 +37,20 @@ public class BxtrCalc
         if(strProc.stringProcessing())
         {
           Calculation calc = new Calculation(strProc.getFirstValue(), strProc.getSecondValue(), strProc.getSign());
+          System.out.println(calc.calculate());
           userInterface.displayAnswer(calc.calculate());
         }
         else
           { userInterface.displayErrorMessage("It doesn't seem like a correct input :("); }
         userInterface.preparationForNextResponse();
       }
+      /* ???????????????????? */
+      try{
+          Thread.currentThread().sleep(100);
+        }
+        catch(InterruptedException ie){
+        }
+      /* ?????????????????????????? */
     }
 
   }
