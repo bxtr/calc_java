@@ -1,14 +1,58 @@
-interface UserInterface extends Runnable
+public class UserInterface
 {
-  /* Work starting - hello-message, adjustment and so on. But no initialization, of course. */
-  public void startWork();
-  /* Work ending - goodbye-message, killing windows and so on */
-  public void endWork();
-  public void displayAnswer(String s);
-  public void displayErrorMessage(String s);
-  public String readExpession();
-  /* If expression is inserted return true else false */ 
-  public boolean response();
-  /* Preparation for next response */
-  public void preparationForNextResponse();
+
+//  private GUIController controller;
+  private UIModel model;
+ // private UIView view;
+
+  public UserInterface()
+  {
+    model = new UIModel();
+    GUIController controller = new GUIController();
+    GUIView view = new GUIView(controller);
+    model.addObserver(view);
+    controller.addModel(model);
+    controller.addView(view);
+    view.addModel(model);
+  }
+  public String getExpression()
+  {
+    while(true)
+    {
+      if(model.response())
+      {
+        String s = model.getExpression();
+        model.nextOperation();
+        return s;
+      }
+      try{ Thread.currentThread().sleep(100);}
+      catch(InterruptedException ie){}
+    }
+  }
+/*
+  public void setAnswer(String answer)
+  {
+    model.setAnswer(answer);
+  }
+
+  public void displayError(int typeOfError)
+  {
+    // controller.displayError(typeOfError);
+  }
+  */
+/*
+  public static void main(String args[])
+  {
+
+
+
+    model.addObserver(view);
+
+    
+    controller.addModel(model);
+    controller.addView(view);
+   // view.addController(controller);
+    view.addModel(model);
+  }
+*/
 }
