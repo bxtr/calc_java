@@ -1,10 +1,9 @@
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GUIController implements UIController, ActionListener
+public class GUIController implements ActionListener
 {
-  UIModel model;
-  GUIView view;
+  GUIModel model;
 
   public void actionPerformed(ActionEvent e){
     if (e.getActionCommand().equals("0")) 
@@ -36,18 +35,10 @@ public class GUIController implements UIController, ActionListener
     else if (e.getActionCommand().equals("-")) 
     { model.addToExp("-");}
     else if (e.getActionCommand().equals("=")) 
-    { 
-    //  model.addToExp("=");
-      model.inputDone();
-    }
+    { model.inputDone();}
   }
 
-  public void addModel(UIModel m){
+  public void addModel(GUIModel m){
     this.model = m;
   }
-
-  public void addView(zGUIView v){
-    this.view = v;
-  }
-
 }

@@ -10,7 +10,7 @@ import java.util.Observable;    //for update();
 public class GUIView implements java.util.Observer
 {
 
-  private UIModel model;
+  private GUIModel model;
 
   private JFrame frame;
   private JTextField textField;
@@ -35,7 +35,7 @@ public class GUIView implements java.util.Observer
     textField.setText(model.getExpression());
   }
 
-  public void addModel(UIModel m){
+  public void addModel(GUIModel m){
     this.model = m;
   }
 

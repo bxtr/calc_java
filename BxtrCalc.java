@@ -9,49 +9,29 @@ public class BxtrCalc
     switch (userPreference)
     {
       case 1:
-        userInterface = new ConsoleInterface();
+        userInterface = new TUIInterface();
         break;
       case 2:
-        userInterface = new GuiInterface();
+        userInterface = new GUIInterface();
         break;
       default:
-        userInterface = new ConsoleInterface();
+        userInterface = new TUIInterface();
         break;
     }
     /* Beginning work */
-    Thread flowUserInterface = new Thread(userInterface);
-    flowUserInterface.start();
-    userInterface.startWork();
     while(true)
     {
-      if(userInterface.response())
+      StringProcessing strProc = new StringProcessing(userInterface.getExpression());
+      if(strProc.expression.equals("exit"))
+      { break;}
+      /* Returning processed variables */
+      if(strProc.stringProcessing())
       {
-      //  System.out.println("MAIN inside");
-        StringProcessing strProc = new StringProcessing(userInterface.readExpession());
-        if(strProc.expression.equals("exit"))
-        {
-          userInterface.endWork();
-          break;
-        }
-        /* Returning processed variables */
-        if(strProc.stringProcessing())
-        {
-          Calculation calc = new Calculation(strProc.getFirstValue(), strProc.getSecondValue(), strProc.getSign());
-          System.out.println(calc.calculate());
-          userInterface.displayAnswer(calc.calculate());
-        }
-        else
-          { userInterface.displayErrorMessage("It doesn't seem like a correct input :("); }
-        userInterface.preparationForNextResponse();
+        Calculation calc = new Calculation(strProc.getFirstValue(), strProc.getSecondValue(), strProc.getSign());
+        userInterface.setAnswer(calc.calculate());
       }
-      /* ???????????????????? */
-      try{
-          Thread.currentThread().sleep(100);
-        }
-        catch(InterruptedException ie){
-        }
-      /* ?????????????????????????? */
+      else
+        { userInterface.displayError("It doesn't seem like a correct input :("); }
     }
-
   }
 }
