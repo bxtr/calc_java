@@ -30,7 +30,7 @@ public class GUIView implements java.util.Observer
   private JButton button_multiplication;
   private JButton button_subtraction;
 
-
+  /* Updated when model change */
   public void update(Observable obs, Object obj) {
     textField.setText(model.getExpression());
   }
@@ -46,7 +46,7 @@ public class GUIView implements java.util.Observer
     } 
   } 
 
-
+  /* Initialize view + add listener */
   public GUIView(ActionListener controller)
   {
     frame = new JFrame();
