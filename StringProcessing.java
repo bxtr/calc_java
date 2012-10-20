@@ -1,58 +1,54 @@
 import java.util.regex.*;
+import java.util.*;
 
 public class StringProcessing
 {
-  public String expression;
-  private String firstValue;
-  private String secondValue;
-  private String sign;
+  private String expression;
+  private List<String> numbers;
+  private List<String> signs;
+  private String regexValidation = "^((\\s*+\\d+(\\.\\d+|\\d*)\\s*)(\\s*(\\+|\\-|\\*|\\/)\\s*\\d+(\\.\\d+|\\d*)\\s*)++)$";
+  private String regexNumbersSplit = "(^\\s*+(?=\\d*+))|(\\s*+[\\/\\*\\-\\+]\\s*+)";
+  private String regexSignsSplit = "\\s*+\\d++(\\.\\d++|\\d*+)\\s*+";
 
   public StringProcessing(String stringInput)
   { expression = stringInput; }
 
-  /* Complex validation and seperation process */
-  public boolean stringProcessing()
+  /* Complex validation and seperation process. Return true if success */
+  public boolean validateAndSplit()
   {
-    if(stringValidation(expression) && stringSeparator(expression))
+    if(stringValidation(expression, regexValidation))
+    {
+      numbers = stringSplit(expression, regexNumbersSplit);
+      signs = stringSplit(expression, regexSignsSplit);
       return true;
-    else return false;
+    }else{
+      return false;
+    }
   }
 
-  /* Validation string. String shall have tow digit numbers, 
-  separated one is four available since, without spases. */
-
-  private boolean stringValidation(String s)
+  /* Validation string. */
+  public static boolean stringValidation(String s, String regex)
   {
-    Pattern p = Pattern.compile("[\\d]+[\\Q+-*/\\E][\\d]+");
+    Pattern p = Pattern.compile(regex);
     Matcher m = p.matcher(s);
     return m.matches();
   }
 
-  /* Separation string. String shall have tow digit numbers, 
-  separated one is four available since, without spases. */
-
-  private boolean stringSeparator(String string)
+  /* Separation string. */
+  public static List<String> stringSplit(String s, String regex)
   {
-    Pattern p1 = Pattern.compile("[\\Q+-*/\\E]");
-    Matcher m1 = p1.matcher(string);
-    if(m1.find())
+    List<String> list = new ArrayList<String>();
+    for (String split: s.split(regex))
     {
-      int isign = m1.start();
-      firstValue = string.substring(0, isign);
-      sign = string.substring(isign, (isign+1));
-      secondValue = string.substring((isign+1), string.length());
-      return true;
+      if(!split.equals(""))
+      { list.add(split);}
     }
-    return false;
+    return list;
   }
 
-  public String getFirstValue()
-  { return firstValue;}
+  public List<String> getNumbers()
+  { return numbers;}
 
-  public String getSecondValue()
-  { return secondValue;}
-
-  public String getSign()
-  { return sign;}
-
+  public List<String> getSigns()
+  { return signs;}
 }

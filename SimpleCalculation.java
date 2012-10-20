@@ -1,28 +1,16 @@
-public class Calculation
+public class SimpleCalculation
 {
- // public static String expression;
-  public static String firstValue;
-  public static String secondValue;
-  public static String sign;
-
-  public Calculation(String firstValue, String secondValue, String sign)
-  { 
-    this.firstValue = firstValue;
-    this.secondValue = secondValue;
-    this.sign = sign;
-  }
-  
   /* Launching chosen fucntion and return answer */
-  public String calculate()
+  public static String calculate(String firstValue, String secondValue, String sign)
   {
-    Function func = chooseFunction();
+    Function func = chooseFunction(sign);
     return (func.calculate(firstValue, secondValue));
   }
 
   /* Check available function and pick one of them.
   If sign doesn't match any available function - pick NonExitsingFucntion
   (return fixed error string)  */
-  private static Function chooseFunction()
+  public static Function chooseFunction(String sign)
   {
     Function func;
     if(sign.equals("+"))

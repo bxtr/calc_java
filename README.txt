@@ -6,4 +6,4 @@ Calculation - модуль для вычислений.
 Addition, Division, Multiplication, Subtraction - различные операции над числами.
 StringProcessing - модуль для обработки строк.
 
-BxtrCacl - class launcher.
+BxtrCalc - class launcher.

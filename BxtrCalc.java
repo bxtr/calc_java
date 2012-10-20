@@ -21,17 +21,11 @@ public class BxtrCalc
     /* Beginning work */
     while(true)
     {
-      StringProcessing strProc = new StringProcessing(userInterface.getExpression());
-      if(strProc.expression.equals("exit"))
+      String expression = userInterface.getExpression();
+      if(expression.equals("exit"))
       { break;}
-      /* Returning processed variables */
-      if(strProc.stringProcessing())
-      {
-        Calculation calc = new Calculation(strProc.getFirstValue(), strProc.getSecondValue(), strProc.getSign());
-        userInterface.setAnswer(calc.calculate());
-      }
       else
-        { userInterface.displayError("It doesn't seem like a correct input :("); }
+      { userInterface.setAnswer(Calculator.calculate(expression)); }
     }
   }
 }
