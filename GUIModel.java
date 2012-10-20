@@ -2,6 +2,7 @@ public class GUIModel extends java.util.Observable {
   
   private String expression = "";
   private String lastExpression; // or memory?
+  private String answer;
   private boolean inputDone = false;
 
   /*Set new expression and update view*/
@@ -11,6 +12,8 @@ public class GUIModel extends java.util.Observable {
     setChanged();
     notifyObservers(expression);
   }
+  public String getExpression()
+  { return expression;}
   /*Add new string to expression and update view*/
   public void addToExp(String expression)
   {
@@ -19,8 +22,16 @@ public class GUIModel extends java.util.Observable {
     notifyObservers(expression);
   }
 
-  public String getExpression()
-  { return expression;}
+
+  public void setAnswer(String answer)
+  { 
+    this.answer = answer;
+    setChanged();
+    notifyObservers(expression);
+  }
+
+  public String getAnswer()
+  { return answer;}
   /*Set flag for response to true. */
   public void inputDone()
   { inputDone = true;}
@@ -32,6 +43,26 @@ public class GUIModel extends java.util.Observable {
   {
     setExpression("");
     inputDone = false;
+    setChanged();
+    notifyObservers(expression);
   }
  
+  public void clearFields()
+  {
+    expression = new String();
+    answer = new String();
+    setChanged();
+    notifyObservers(expression);
+  }
+
+  public void memory()
+  {}
+
+  public void shift()
+  {
+    expression = new String(answer);
+    answer = new String();
+    setChanged();
+    notifyObservers(expression);
+  }
 }

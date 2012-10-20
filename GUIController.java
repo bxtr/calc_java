@@ -36,6 +36,18 @@ public class GUIController implements ActionListener
     { model.addToExp("-");}
     else if (e.getActionCommand().equals("=")) 
     { model.inputDone();}
+    else if (e.getActionCommand().equals("C"))
+    { model.clearFields();}
+    else if (e.getActionCommand().equals("M"))
+    { model.memory();}
+    else if (e.getActionCommand().equals("<-"))
+    { model.shift();}
+    else if (e.getActionCommand().equals("("))
+    { model.addToExp("(");}
+    else if (e.getActionCommand().equals(")"))
+    { model.addToExp(")");}
+    else if (e.getActionCommand().equals("sin"))
+    { model.addToExp("sin");}
   }
 
   public void addModel(GUIModel m){

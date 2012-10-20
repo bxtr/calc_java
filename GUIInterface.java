@@ -27,7 +27,7 @@ public class GUIInterface implements UserInterface
     }
   }
   public void setAnswer(String answer)
-  { model.setExpression(answer);}
+  { model.setAnswer(answer);}
 
   public void displayError(String error)
   { model.setExpression(error);}
