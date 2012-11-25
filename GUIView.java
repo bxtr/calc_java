@@ -149,12 +149,14 @@ public class GUIView implements java.util.Observer
     textField.setBounds(12, 12, 228, 35);
     frmBxtrcalc.getContentPane().add(textField);
     textField.setColumns(10);
+    textField.setEnabled(false);
 
     textField_1 = new JTextField();
     textField_1.setFont(new Font("Century Schoolbook L", Font.BOLD, 23));
     textField_1.setBounds(258, 12, 142, 35);
     textField_1.setColumns(10);
     frmBxtrcalc.getContentPane().add(textField_1);
+    textField_1.setEnabled(false);
 
     JLabel label = new JLabel("=");
     label.setFont(new Font("Century Schoolbook L", Font.BOLD, 23));
@@ -192,6 +194,12 @@ public class GUIView implements java.util.Observer
     btnSin.setBounds(172, 59, 68, 25);
     frmBxtrcalc.getContentPane().add(btnSin);
     
+    //this button doesn't have right parser yet
+    button_lbrace.setEnabled(false);
+    button_rbrace.setEnabled(false);
+    btnSin.setEnabled(false);
+    ////////////
+
     btnC.addActionListener(controller);
     btnM.addActionListener(controller);
     button_shift.addActionListener(controller);

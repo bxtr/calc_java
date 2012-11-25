@@ -1,7 +1,8 @@
 public class GUIModel extends java.util.Observable { 
   
   private String expression = "";
-  private String lastExpression; // or memory?
+  private String memory;
+  private boolean memoryFlag = false;
   private String answer;
   private boolean inputDone = false;
 
@@ -56,7 +57,17 @@ public class GUIModel extends java.util.Observable {
   }
 
   public void memory()
-  {}
+  {
+    if(!memoryFlag){
+      memory = answer;
+      memoryFlag = true;
+    }else{
+      expression += memory;
+      setChanged();
+      notifyObservers(expression);
+      memoryFlag = false;
+    }
+  }
 
   public void shift()
   {
