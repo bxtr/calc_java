@@ -1,11 +1,16 @@
-public class Division implements Function
+public class Division extends Function
 {
-  public String calculate(String first, String second)
+  public Division()
   {
-    double divider = new Double(second).doubleValue();
-    if (divider != 0.0)
-      return (new Double(new Double(first).doubleValue() / divider)).toString();
-    else
-      return "Cannot divide by zero";
+    sign = "/";
+    order = 2;
+  }
+
+  public double calculate(double nom, double ... divs)
+  {
+    double result = nom;
+    for (double div: divs)
+      result = result/div;
+    return result;
   }
 }

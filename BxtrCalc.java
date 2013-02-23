@@ -18,14 +18,15 @@ public class BxtrCalc
         userInterface = new TUIInterface();
         break;
     }
+    MachineForCalculation calc = new MachineForCalculation(new HolderFunction());
     /* Beginning work */
     while(true)
     {
       String expression = userInterface.getExpression();
       if(expression.equals("exit"))
-      { break;}
+        { break;}
       else
-      { userInterface.setAnswer(Calculator.calculate(expression)); }
+        { userInterface.setAnswer(calc.calculate(expression));}
     }
   }
 }

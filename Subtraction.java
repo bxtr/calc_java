@@ -1,5 +1,16 @@
-  public class Subtraction implements Function
+public class Subtraction extends Function
+{
+  public Subtraction()
   {
-    public String calculate(String first, String second)
-    { return (new Double(new Double(first).doubleValue() - new Double(second).doubleValue())).toString(); }
+    sign = "-";
+    order = 3;
   }
+
+  public double calculate(double first, double ... second)
+  {
+    double result = first;
+    for (double element: second)
+      result -= element;
+    return result;
+  }
+}

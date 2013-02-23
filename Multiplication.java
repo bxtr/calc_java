@@ -1,5 +1,16 @@
-  public class Multiplication implements Function
+public class Multiplication extends Function
+{
+  public Multiplication()
   {
-    public String calculate(String first, String second)
-    { return (new Double(new Double(first).doubleValue() * new Double(second).doubleValue())).toString(); }
+    sign = "*";
+    order = 2;
   }
+
+  public double calculate(double first, double ... second)
+  {
+    double result = first;
+    for (double element: second)
+      result = result * element;
+    return result;
+  }
+}
