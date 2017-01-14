@@ -1,3 +1,7 @@
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Memory
 {
   private Queue<String> log;
@@ -18,7 +22,7 @@ public class Memory
   public void memLast()
   { 
     if(log.peek() != null)
-      {memory = log.peek()}
+      {memory = log.peek();}
   }
 
   public String memOut()
